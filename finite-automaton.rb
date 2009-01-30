@@ -66,6 +66,23 @@ class FiniteAutomaton
   def to_deterministic
   end
 
+  def merged_edges
+    result = {}
+    @transitions.inject([]) do
+      |collected, ((source, character), targets)|
+      collected + targets.map do |target|
+        [source, character, target]
+      end
+    end.to_set.classify do |(source, character, target)|
+      [source, target]
+    end.each_pair do |(source, target), transitions|
+      result[[source, target]] = transitions.map do |(_, character, _)|
+        character
+      end
+    end
+    result
+  end
+
   def to_dot
     require 'stringio'
     StringIO.new.tap do |output|
@@ -74,13 +91,11 @@ class FiniteAutomaton
       output.puts 'size="8,5"'
 
       output.puts '0 [style=invis];'
-      output.puts %Q/node [shape=doublecircle]; #{@accept_states.to_a.join(' ')};/
+      output.puts %Q/node [shape=doublecircle]; #{@accept_states.to_a.map {|t| %Q/"#{t}"/}.join(' ')};/
       output.puts 'node [shape=circle];'
       output.puts "0 -> #{start_state};"
-      @transitions.each_pair do |(source, character), targets|
-        targets.each do |target|
-          output.puts "#{source} -> #{target} [label=#{character}];"
-        end
+      merged_edges.each_pair do |(source, target), characters|
+        output.puts %Q/"#{source}" -> "#{target}" [label="#{characters.join(', ')}"];/
       end
 
       output.puts '}'
@@ -95,10 +110,8 @@ class FiniteAutomaton
         output.puts "[ #{state} ] { border: double; }"
       end
       output.puts "[ 0 ] --> [ #{@start_state} ]"
-      @transitions.each_pair do |(source, character), targets|
-        targets.each do |target|
-          output.puts "[ #{source} ] -- #{character} --> [ #{target} ]"
-        end
+      merged_edges.each_pair do |(source, target), characters|
+        output.puts "[ #{source} ] -- #{characters.join(', ')} --> [ #{target} ]"
       end
     end.string
   end
