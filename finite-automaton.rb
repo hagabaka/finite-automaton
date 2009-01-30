@@ -30,24 +30,23 @@ class FiniteAutomaton
     @transitions[[from, character]] << to
   end
 
-  def closure(state, character)
-    c = @transitions[[state, character]]
+  def closure(character, *states)
+    c = states.inject(Set.new) do |r, state|
+      r | @transitions[[state, character]]
+    end
     if character == EPSILON
-      c | Set[state]
+      c | Set[*states]
     else
-      c
+      # c unioned with the EPSILON-closure of each state in c
+      c | closure(EPSILON, *c)
     end
   end
 
   def accept?(input)
     not (
-      input.inject(closure(@start_state, EPSILON)) do |reachable, character|
-        reachable.map do |state|
-          closure(state, character)
-        end.flatten.to_set.map do |state|
-          closure(state, EPSILON)
-        end.to_set.flatten
-      end.flatten & @accept_states
+      input.inject(closure(EPSILON, @start_state)) do |reachable, character|
+        closure(character, *reachable)
+      end & @accept_states
     ).empty?
   end
   alias_method :accepts?, :accept?
