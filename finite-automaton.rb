@@ -9,7 +9,11 @@ class FiniteAutomaton
 
   def initialize(start_state)
     @start_state = start_state
-    @transitions = Hash.new {|h, k| h[k] = Set.new}
+    @transitions = Hash.new do |transitions, (state, character)|
+      Set.new.tap do |empty_set|
+        transitions[[state, character]] = empty_set unless character == EPSILON
+      end
+    end
     @accept_states = Set.new
     @alphabet = Set.new
     @states = Set.new
