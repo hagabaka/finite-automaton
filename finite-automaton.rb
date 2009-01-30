@@ -46,7 +46,7 @@ class FiniteAutomaton
       end.flatten & @accept_states
     ).empty?
   end
-  alias_method :accept?, :accepts?
+  alias_method :accepts?, :accept?
 
   def deterministic?
     @transitions.keys.all? do |(from, character)|
