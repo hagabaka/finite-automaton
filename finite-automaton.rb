@@ -70,8 +70,8 @@ class FiniteAutomaton
       output.puts 'size="8,5"'
 
       output.puts '0 [style=invis];'
-      output.puts %Q/node [shape=doublecircle label=""]; #{@accept_states.to_a.join(' ')};/
-      output.puts 'node [shape=circle lable=""];'
+      output.puts %Q/node [shape=doublecircle]; #{@accept_states.to_a.join(' ')};/
+      output.puts 'node [shape=circle];'
       output.puts "0 -> #{start_state};"
       @transitions.each_pair do |(source, character), targets|
         targets.each do |target|
@@ -86,7 +86,6 @@ class FiniteAutomaton
   def to_graph_easy
     require 'stringio'
     StringIO.new.tap do |output|
-      output.puts 'node { label: ""; }'
       output.puts '[ 0 ] { shape: invisible; }'
       @accept_states.each do |state|
         output.puts "[ #{state} ] { border: double; }"
