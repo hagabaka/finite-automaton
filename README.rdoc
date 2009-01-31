@@ -2,23 +2,27 @@ This is a library for describing and using finite automata in Ruby.
 
 = Defining
 
-m = FiniteAutomaton.new('a')
-m.add_transition('a', 1, 'b')
-m.add_transition('b', 0, 'a')
-m.add_transition('a', 0, 'a')
-m.add_transition('b', 1, 'b')
-m.accept_states << 'b'
+  m = FiniteAutomaton.new('a')
+  m.add_transition('a', 1, 'b')
+  m.add_transition('b', 0, 'a')
+  m.add_transition('a', 0, 'a')
+  m.add_transition('b', 1, 'b')
+  m.accept_states << 'b'
 
 = Using
 
-m.deterministic? #=> true
-m.accept? [0, 1, 0] #=> false
-m.accept? [1, 1, 0, 0, 0, 1] #=> true
+  m.deterministic? #=> true
+  m.accept? [0, 1, 0] #=> false
+  m.accept? [1, 1, 0, 0, 0, 1] #=> true
 
 = Visualizing
 
-require 'open3'
-Open3.popen3('graph-easy') {|i,o,_| i << m.to_graph_easy; i.close; puts o.read}
+  require 'open3'
+  Open3.popen3('graph-easy') do |i,o,_|
+    i << m.to_graph_easy
+    i.close
+    puts o.read
+  end
                  0
          +--------------+
          v              |
