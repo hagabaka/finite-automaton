@@ -81,6 +81,7 @@ class FiniteAutomaton
     end
     result
   end
+  private :merged_edges
 
   def to_dot
     require 'stringio'
