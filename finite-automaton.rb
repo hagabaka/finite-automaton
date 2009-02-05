@@ -50,19 +50,5 @@ class FiniteAutomaton
     ).empty?
   end
   alias_method :accepts?, :accept?
-
-  def deterministic?
-    @transitions.keys.all? do |(from, character)|
-      character != EPSILON
-    end and
-    @states.all? do |state|
-      @alphabet.all? do |character|
-        @transitions[[state, character]].length == 1
-      end
-    end
-  end
-
-  def to_deterministic
-  end
 end
 
