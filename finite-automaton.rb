@@ -7,11 +7,11 @@ class FiniteAutomaton
     end
   end
 
-  attr_reader :start_state
+  attr_accessor :start_state
   attr_reader :accept_states
   attr_reader :alphabet
 
-  def initialize(start_state)
+  def initialize(start_state='s')
     @start_state = start_state
     @transitions = Hash.new do |transitions, (state, character)|
       Set.new.tap do |empty_set|
