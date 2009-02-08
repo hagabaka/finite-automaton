@@ -29,7 +29,7 @@ class FiniteAutomaton
       output.puts '0 [style=invis];'
       output.puts %Q/node [shape=doublecircle]; #{@accept_states.map {|t| %Q/"#{t}"/}.join(' ')};/
       output.puts 'node [shape=circle];'
-      output.puts "0 -> #{start_state};"
+      output.puts %Q/0 -> "#{start_state}";/
       merged_edges.each_pair do |(source, target), characters|
         output.puts %Q/"#{source}" -> "#{target}" [label="#{characters.join(', ')}"];/
       end
