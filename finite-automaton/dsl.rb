@@ -1,3 +1,39 @@
+# == DSL allows you to construct a FiniteAutomaton
+#
+# = Example
+#
+#   a = FiniteAutomaton.new
+#   - a[1] - 'x' > +a[2].-('x', 'y') > +a[3].<<('x', 'y') - 'y' > a[1]
+#
+#   a.visualize
+#              y
+#          +------------------------+
+#          v                        |
+#        +---+  x   #===#  x, y   #==========#
+#    --> | 1 | ---> H 2 H ------> H    3     H
+#        +---+      #===#         #==========#
+#                                   ^ x, y |
+#                                   +------+
+#
+# = Syntax
+#
+# -(state)::
+#   mark the state as the starting state
+# +(state)::
+#   mark the state as an accepting state
+# state1 - character > state2::
+#   when character is entered at state1, go to state2
+# state << character ::
+#   the state loops on the character
+#
+# It's possible to use a list of characters, but as the example shows,
+# you need to use state.-(...) or state.<<(...) to avoid parser errors
+#
+# (Do not use an array of characters thinking they will add multiple
+# transitions; that will add one transition treating the array as one
+# "character". It is intended that any object, including an array, can
+# be a transition character.)
+
 require 'finite-automaton'
 require 'finite-automaton/state'
 
@@ -34,6 +70,13 @@ class FiniteAutomaton::StateCharacters
       goto arg
     end
     arg
+  end
+
+  [:+@, :-@].each do |m|
+    define_method(m) do
+      @state.send(m)
+      self
+    end
   end
 end
 
