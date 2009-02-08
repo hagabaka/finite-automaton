@@ -51,4 +51,24 @@ class FiniteAutomaton
       end
     end.string
   end
+
+  # display the automaton using graph-easy, maybe UNIX-centric
+  def visualize
+    require 'open3'
+    Open3.popen3('graph-easy') do |i,o,_|
+      i.write to_graph_easy
+      i.close
+      puts o.read
+    end
+  end
+
+  # display the automaton by using dot and ImageMagick "display", UNIX-centric
+  def x_visualize
+    require 'open3'
+    Open3.popen3('dot -T svg | display') do |i,o,_|
+      i.write to_dot
+      i.close
+    end
+  end
 end
+
