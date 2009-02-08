@@ -1,7 +1,11 @@
 require 'set'
 
 class FiniteAutomaton
-  EPSILON = nil
+  EPSILON = Object.new.tap do |o|
+    def o.to_s
+      "\xce\xb5"
+    end
+  end
 
   attr_reader :start_state
   attr_reader :accept_states
