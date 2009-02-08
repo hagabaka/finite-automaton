@@ -32,6 +32,7 @@ class FiniteAutomaton::State
 
   def goto_on(target, *characters)
     characters.each {|c| @automaton.add_transition(tag, c, target.tag)}
+    target
   end
 
   def start!
