@@ -23,7 +23,6 @@ class FiniteAutomaton
   end
 
   def add_transition(from, character, to)
-    [from, to].each {|state| add_state(state)}
     @alphabet << character
     @transitions[[from, character]] << to
   end
