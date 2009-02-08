@@ -1,6 +1,6 @@
-# == DSL allows you to construct a FiniteAutomaton
+# = A DSL for constructing a FiniteAutomaton
 #
-# = Example
+# == Example
 #
 #   a = FiniteAutomaton.new
 #   - a[1] - 'x' > +a[2].-('x', 'y') > +a[3].<<('x', 'y') - 'y' > a[1]
@@ -15,19 +15,20 @@
 #                                   ^ x, y |
 #                                   +------+
 #
-# = Syntax
+# == Syntax
 #
-# -(state)::
+# <code>-(state)</code>::
 #   mark the state as the starting state
-# +(state)::
+# <code></code>(state)+::
 #   mark the state as an accepting state
-# state1 - character > state2::
+# <code>state1 - character > state2</code>::
 #   when character is entered at state1, go to state2
-# state << character ::
+# <code>state << character</code>::
 #   the state loops on the character
 #
 # It's possible to use a list of characters, but as the example shows,
-# you need to use state.-(...) or state.<<(...) to avoid parser errors
+# you need to use <code>state.-(...)</code> or <code>state.<<(...)</code>
+# to avoid parser errors
 #
 # (Do not use an array of characters thinking they will add multiple
 # transitions; that will add one transition treating the array as one
