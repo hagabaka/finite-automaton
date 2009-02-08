@@ -34,3 +34,10 @@ Or use the DSL[http://hagabaka.github.com/finite-automaton/files/finite-automato
          ^ 0 |          ^ 1 |
          +---+          +---+
 
+= Access
+
+Rdoc::
+  [http://hagabaka.github.com/finite-automaton]
+GitHub::
+  [http://github.com/hagabaka/finite-automaton/tree/master]
+
