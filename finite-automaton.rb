@@ -15,7 +15,7 @@ class FiniteAutomaton
     @start_state = start_state
     @transitions = Hash.new do |transitions, (state, character)|
       Set.new.tap do |empty_set|
-        transitions[[state, character]] = empty_set unless character == EPSILON
+        transitions[[state, character]] = empty_set
       end
     end
     @accept_states = Set.new
