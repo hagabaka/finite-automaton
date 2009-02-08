@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: dsl.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>dsl.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>finite-automaton/dsl.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Sun Feb 08 10:20:22 -0500 2009</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>A DSL for constructing a <a href="../../classes/FiniteAutomaton.html">FiniteAutomaton</a></h1>
+<h2>Example</h2>
+<pre>
+  a = FiniteAutomaton.new
+  - a[1] - 'x' &gt; +a[2].-('x', 'y') &gt; +a[3].&lt;&lt;('x', 'y') - 'y' &gt; a[1]
+
+  a.visualize
+             y
+         +------------------------+
+         v                        |
+       +---+  x   #===#  x, y   #==========#
+   --&gt; | 1 | ---&gt; H 2 H ------&gt; H    3     H
+       +---+      #===#         #==========#
+                                  ^ x, y |
+                                  +------+
+</pre>
+<h2>Syntax</h2>
+<table>
+<tr><td valign="top"><tt>-(state)</tt>:</td><td>mark the state as the starting state
+
+</td></tr>
+<tr><td valign="top"><tt>+(state)</tt>:</td><td>mark the state as an accepting state
+
+</td></tr>
+<tr><td valign="top"><tt>state1 - character &gt; state2</tt>:</td><td>when character is entered at state1, go to state2
+
+</td></tr>
+<tr><td valign="top"><tt>state &lt;&lt; character</tt>:</td><td>the state loops on the character
+
+</td></tr>
+</table>
+<p>
+It&#8216;s possible to use a list of characters, but as the example shows,
+you need to use <tt>state.-(&#8230;)</tt> or
+<tt>state.&lt;&lt;(&#8230;)</tt> to avoid parser errors
+</p>
+<p>
+(Do not use an array of characters thinking they will add multiple
+transitions; that will add one transition treating the array as one
+&quot;character&quot;. It is intended that any object, including an array,
+can be a transition character.)
+</p>
+
+    </div>
+
+    <div id="requires-list">
+      <h3 class="section-bar">Required files</h3>
+
+      <div class="name-list">
+      <a href="../finite-automaton_rb.html">finite-automaton</a>&nbsp;&nbsp;
+      <a href="state_rb.html">finite-automaton/state</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
