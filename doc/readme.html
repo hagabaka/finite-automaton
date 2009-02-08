@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="style.css" type="text/css" charset="utf-8" />
+<link rel="stylesheet" href="syntax_highlight.css" type="text/css" charset="utf-8" />
+
+    <title>README</title>
+  </head>
+  <body>
+    <div id="content">
+      <div class="section docstring readme">
+        <p>
+This is a library for describing and using finite automata in Ruby.
+</p>
+<h1>Defining</h1>
+<pre class="code">
+  <span class='m identifier id'>m</span> <span class='assign token'>=</span> <span class='FiniteAutomaton constant id'>FiniteAutomaton</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>'a'</span><span class='rparen token'>)</span>
+  <span class='m identifier id'>m</span><span class='dot token'>.</span><span class='add_transition identifier id'>add_transition</span><span class='lparen token'>(</span><span class='string val'>'a'</span><span class='comma token'>,</span> <span class='integer val'>1</span><span class='comma token'>,</span> <span class='string val'>'b'</span><span class='rparen token'>)</span>
+  <span class='m identifier id'>m</span><span class='dot token'>.</span><span class='add_transition identifier id'>add_transition</span><span class='lparen token'>(</span><span class='string val'>'b'</span><span class='comma token'>,</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='string val'>'a'</span><span class='rparen token'>)</span>
+  <span class='m identifier id'>m</span><span class='dot token'>.</span><span class='add_transition identifier id'>add_transition</span><span class='lparen token'>(</span><span class='string val'>'a'</span><span class='comma token'>,</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='string val'>'a'</span><span class='rparen token'>)</span>
+  <span class='m identifier id'>m</span><span class='dot token'>.</span><span class='add_transition identifier id'>add_transition</span><span class='lparen token'>(</span><span class='string val'>'b'</span><span class='comma token'>,</span> <span class='integer val'>1</span><span class='comma token'>,</span> <span class='string val'>'b'</span><span class='rparen token'>)</span>
+  <span class='m identifier id'>m</span><span class='dot token'>.</span><span class='accept_states identifier id'>accept_states</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>'b'</span>
+</pre>
+<p>
+Or use the DSL[link:files/finite-automaton/dsl_rb.html]
+</p>
+<h1>Using</h1>
+<pre class="code">
+  <span class='m identifier id'>m</span><span class='dot token'>.</span><span class='deterministic? fid id'>deterministic?</span> <span class='comment val'>#=&gt; true</span>
+  <span class='m identifier id'>m</span><span class='dot token'>.</span><span class='accept? fid id'>accept?</span> <span class='lbrack token'>[</span><span class='integer val'>0</span><span class='comma token'>,</span> <span class='integer val'>1</span><span class='comma token'>,</span> <span class='integer val'>0</span><span class='rbrack token'>]</span> <span class='comment val'>#=&gt; false</span>
+  <span class='m identifier id'>m</span><span class='dot token'>.</span><span class='accept? fid id'>accept?</span> <span class='lbrack token'>[</span><span class='integer val'>1</span><span class='comma token'>,</span> <span class='integer val'>1</span><span class='comma token'>,</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='integer val'>1</span><span class='rbrack token'>]</span> <span class='comment val'>#=&gt; true</span>
+</pre>
+<h1>Visualizing</h1>
+<pre class="code">
+  <span class='require identifier id'>require</span> <span class='string val'>'open3'</span>
+  <span class='Open3 constant id'>Open3</span><span class='dot token'>.</span><span class='popen3 identifier id'>popen3</span><span class='lparen token'>(</span><span class='string val'>'graph-easy'</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='i identifier id'>i</span><span class='comma token'>,</span><span class='o identifier id'>o</span><span class='comma token'>,</span><span class='_ identifier id'>_</span><span class='bitor op'>|</span>
+    <span class='i identifier id'>i</span> <span class='lshft op'>&lt;&lt;</span> <span class='m identifier id'>m</span><span class='dot token'>.</span><span class='to_graph_easy identifier id'>to_graph_easy</span>
+    <span class='i identifier id'>i</span><span class='dot token'>.</span><span class='close identifier id'>close</span>
+    <span class='puts identifier id'>puts</span> <span class='o identifier id'>o</span><span class='dot token'>.</span><span class='read identifier id'>read</span>
+  <span class='end end kw'>end</span>
+                 <span class='integer val'>0</span>
+         <span class='plus op'>+</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='plus op'>+</span>
+         <span class='v identifier id'>v</span>              <span class='bitor op'>|</span>
+       <span class='plus op'>+</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='plus op'>+</span>  <span class='integer val'>1</span>   <span class='comment val'>#=======#</span>
+   <span class='minus op'>-</span><span class='minus op'>-</span><span class='gt op'>&gt;</span> <span class='bitor op'>|</span>   <span class='a identifier id'>a</span>   <span class='bitor op'>|</span> <span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='gt op'>&gt;</span> <span class='H constant id'>H</span>   <span class='b identifier id'>b</span>   <span class='H constant id'>H</span>
+       <span class='plus op'>+</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='plus op'>+</span>      <span class='comment val'>#=======#</span>
+         <span class='bitxor op'>^</span> <span class='integer val'>0</span> <span class='bitor op'>|</span>          <span class='bitxor op'>^</span> <span class='integer val'>1</span> <span class='bitor op'>|</span>
+         <span class='plus op'>+</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='plus op'>+</span>          <span class='plus op'>+</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='minus op'>-</span><span class='plus op'>+</span>
+</pre>
+
+      </div>
+    </div>
+  </body>
+</html>
