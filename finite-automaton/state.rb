@@ -44,6 +44,6 @@ class FiniteAutomaton::State
   end
 
   def loop_on(*characters)
-    on(*characters).goto(self)
+    goto_on(self, *characters)
   end
 end
