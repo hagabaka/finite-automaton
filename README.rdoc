@@ -9,6 +9,8 @@ This is a library for describing and using finite automata in Ruby.
   m.add_transition('b', 1, 'b')
   m.accept_states << 'b'
 
+Or use the DSL[link:files/finite-automaton/dsl_rb.html]
+
 = Using
 
   m.deterministic? #=> true
