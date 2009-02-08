@@ -19,7 +19,7 @@
 #
 # <code>-(state)</code>::
 #   mark the state as the starting state
-# <code></code>(state)+::
+# <code>+(state)</code>::
 #   mark the state as an accepting state
 # <code>state1 - character > state2</code>::
 #   when character is entered at state1, go to state2
