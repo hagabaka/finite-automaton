@@ -24,9 +24,11 @@ class FiniteAutomaton
     add_state(@start_state)
   end
 
-  def add_state(state)
-    @states << state
+  def add_state(tag)
+    @states << State.new(tag, self)
   end
+  alias_method :[], :add_state
+  alias_method :state, :add_state
 
   def add_transition(from, character, to)
     [from, to].each {|state| add_state(state)}
@@ -56,3 +58,21 @@ class FiniteAutomaton
   alias_method :accepts?, :accept?
 end
 
+class FiniteAutomaton::State
+  def initialize(automaton, tag)
+    @automaton = automaton
+    @tag = tag
+  end
+
+  def identifier
+    [@automaton, @tag]
+  end
+
+  def eql?(s)
+    identifier == s.identifier
+  end
+
+  def hash
+    identifier.hash
+  end
+end
